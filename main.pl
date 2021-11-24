@@ -1,9 +1,6 @@
+%%% Knowledge Base (Base de conhecimento)%%%
+
 % Historico escolar alunos
-
-% Estudantes que cursaram disciplina
-cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
-
-%faltaCursar(X) :- matriz(Y, Z), cursou(X, A, _), where Z alunode(X, Z).
 
 % Fátima Martins Matias
 cursou("Fátima Martins Matias", "Algoritmos", 60).
@@ -64,7 +61,6 @@ matriz("Teoria dos Grafos", cc).
 matriz("Orientação à Objetos", cc).
 matriz("Circuitos Digitais", cc).
 
-
 matriz("Álgebra Linear", cc).
 matriz("Equações Diferenciais I", cc).
 matriz("Cálculo Numérico", cc).
@@ -97,16 +93,16 @@ matriz("Linguagem de Programação", cc).
 
 %Alunos CC
 
-alunode("Fátima Martins Matias", cc).
-alunode("José Valverde Coimbra", cc).
-alunode("Jorge Marcos Ortega", cc).
-alunode("Davi Silva Araujo", cc).
-alunode("Gustavo Melo Cavalcanti", cc).
-alunode("Cauã Souza Fernandes", cc).
-alunode("Márcio Receputi Faria", cc).
-alunode("Arthur Correia Barbosa", cc).
-alunode("Vitor Alves Correia", cc).
-alunode("Enzo Castro Oliveira", cc).
+alunoDe("Fátima Martins Matias", cc).
+alunoDe("José Valverde Coimbra", cc).
+alunoDe("Jorge Marcos Ortega", cc).
+alunoDe("Davi Silva Araujo", cc).
+alunoDe("Gustavo Melo Cavalcanti", cc).
+alunoDe("Cauã Souza Fernandes", cc).
+alunoDe("Márcio Receputi Faria", cc).
+alunoDe("Arthur Correia Barbosa", cc).
+alunoDe("Vitor Alves Correia", cc).
+alunoDe("Enzo Castro Oliveira", cc).
 
 % Grade SI
 
@@ -161,13 +157,66 @@ matriz("TCC em Sistemas de Informação", si).
 
 %Alunos SI
 
-alunode("Estefany Toscano Canário", si).
-alunode("Nayla Belchior Salgado", si).
-alunode("Clara da Granja Teodoro", si).
-alunode("Sasha Nolasco Oliveira", si).
-alunode("Davi Goncalves Oliveira", si).
-alunode("Lucas Barros Azevedo", si).
-alunode("Gabriel Correia Castro", si).
-alunode("Kaike Dias Melo", si).
-alunode("Marcelo Dias Souza", si).
-alunode("Daniel Lima Fernandes", si).
+alunoDe("Estefany Toscano Canário", si).
+alunoDe("Nayla Belchior Salgado", si).
+alunoDe("Clara da Granja Teodoro", si).
+alunoDe("Sasha Nolasco Oliveira", si).
+alunoDe("Davi Goncalves Oliveira", si).
+alunoDe("Lucas Barros Azevedo", si).
+alunoDe("Gabriel Correia Castro", si).
+alunoDe("Kaike Dias Melo", si).
+alunoDe("Marcelo Dias Souza", si).
+alunoDe("Daniel Lima Fernandes", si).
+
+% IRA
+calculaIRA(X, R) :- findall(Z, cursou(X, Y, Z), R). %TODO terminar de calcular a media
+
+%TODO usar os alias para retornar listas e tornar a impressao mais eficiente
+% ---Requisitos--- %
+%% 1- Retornar o histórico escolar de um estudante
+%ex: cursou(nomeAluno, nomeDisciplina, Nota)
+%retornar nome das disciplinas: cursou(nomeAluno, Y, _)
+%retornar nome e nota: cursou(nomeAluno, Y, Z).
+%ex: cursouNota(nomeAluno, nomeDisciplina, nota, notaFiltro)
+%retornar nome e notas das disciplinas aprovadas:
+% cursouNota(nomeAluno, Y, Z, 60)
+%cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
+%ex: historico(nomeAluno, nomeDisciplina, Nota)
+%retornar somente nome das disciplinas: historico(nomeAluno, Y, _)
+%retornar nome e nota: historico(nomeAluno, Y, Z).
+historico(X, Y, Z) :- cursou(X, Y, Z).
+
+%% 2- Retornar a matriz curricular de um curso
+%ex: matriz(X, siglaCurso)
+retornaMatriz(X, Y) :- matriz(X, Y). %alias
+%ex: matriz(X, siglaCurso)
+%matriz(X, Y). %direta
+
+%% 3- Relação de alunos que já cursaram uma disciplina, com critério de seleção por nota
+%ex: cursou(nomeAluno, nomeDisciplina, Nota)
+%retornar nome das disciplinas: cursou(nomeAluno, Y, _)
+%retornar nome e nota: cursou(nomeAluno, Y, Z).
+%ex: cursouNota(nomeAluno, nomeDisciplina, nota, notaFiltro)
+%retornar nome e notas das disciplinas aprovadas:
+% cursouNota(nomeAluno, Y, Z, 60)
+cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
+
+%% 4- Relação de disciplinas que faltam ser cursadas por um estudante
+%faltaCursar(X) :- matriz(Y, Z), cursou(X, A, _), where Z alunode(X, Z).
+
+%% 5- Relação de estudantes de um curso, com critério de seleção por nota em uma disciplina ou por IRA
+%retorna todos os alunos de um curso
+%ex: alunoDe(X, siglaCurso)
+%alunoDe(X, Y).
+
+%retorna todas os alunos e as disciplinas feitas por ele no curso e acima do filtro de nota
+%ex:alunoDe_ComNota(A, siglaCurso, B, C, D)
+%obs: usar D = 0 para exibir o histórico completo
+%alunoDe_ComNota(nomeAluno, siglaCurso, nomeDisciplina, nota, filtroNota)
+alunoDe_ComNota(X, Y, B, Z, A) :- alunoDe(X, Y), cursouNota(X, B, Z, A).
+
+%% 6- Relação de cursos que contém uma disciplina
+%ex: matriz(nomeDisciplina, Z)
+cursoContem(R, X) :- bagof(Z, matriz(X, Z), R). %com alias
+%ex: matriz(nome, Z)
+%matriz(X, Z). %direta

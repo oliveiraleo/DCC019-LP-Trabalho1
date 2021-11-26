@@ -5,7 +5,7 @@
 % Fátima Martins Matias
 cursou("Fátima Martins Matias", "Algoritmos", 60).
 cursou("Fátima Martins Matias", "Laboratório de Química", 75).
-cursou("Fátima Martins Matias", "Introdução às Ciências Exatas", 100).
+cursou("Fátima Martins Matias", ice001, 100).
 cursou("Fátima Martins Matias", "Cálculo I", 76).
 cursou("Fátima Martins Matias", "Laboratório de Programação", 60).
 cursou("Fátima Martins Matias", "Laboratório de Química", 71).
@@ -15,7 +15,7 @@ cursou("Fátima Martins Matias", "Química Fundamental", 78).
 % José Valverde Coimbra
 cursou("José Valverde Coimbra", "Algoritmos", 70).
 cursou("José Valverde Coimbra", "Laboratório de Química", 60).
-cursou("José Valverde Coimbra", "Introdução às Ciências Exatas", 90).
+cursou("José Valverde Coimbra", ice001, 90).
 cursou("José Valverde Coimbra", "Cálculo I", 62).
 cursou("José Valverde Coimbra", "Laboratório de Programação", 60).
 cursou("José Valverde Coimbra", "Laboratório de Química", 79).
@@ -33,17 +33,20 @@ cursou("José Valverde Coimbra", "Laboratório de Ciência da Computação", 85)
 
 % Grade CC
 
-%TODO try this way
-%matriz([dcc119, algoritmo], cc).
+%TODO anotar tambem o cod das disciplinas
+%TODO colocar a lista abaixo em ordem depois
+disciplina(dcc119, "Algoritmos").
+disciplina(ice001, "Introdução às Ciências Exatas").
+disciplina(qui126, "Laboratório de Química").
 
 matriz("Geometria Analitica e Sistemas Lineares", cc).
 matriz("Cálculo I", cc).
 matriz("Química Fundamental", cc).
 matriz("Laboratório de Introdução às Ciências Físicas", cc).
-matriz("Algoritmos", cc).
+matriz(dcc119, cc).
 matriz("Laboratório de Programação", cc).
-matriz("Laboratório de Química", cc).
-matriz("Introdução às Ciências Exatas", cc).
+matriz(qui126, cc).
+matriz(ice001, cc).
 
 matriz("Cálculo II", cc).
 matriz("Introdução à Estatística", cc).
@@ -169,9 +172,13 @@ alunoDe("Marcelo Dias Souza", si).
 alunoDe("Daniel Lima Fernandes", si).
 
 % IRA
-calculaIRA(X, R) :- findall(Z, cursou(X, Y, Z), R). %TODO terminar de calcular a media
+somaNotas([], 0, 0). % se a lista for vazia, nao ha o que somar
+somaNotas([X|Xs], L1, N1) :- somaNotas(Xs, L, N), N1 is N + X, L1 is L + 1.
 
-%TODO usar os alias para retornar listas e tornar a impressao mais eficiente
+calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
+                    somaNotas(R, L, N), V is N / L.
+%TODO terminar de calcular a media
+
 % ---Requisitos--- %
 %% 1- Retornar o histórico escolar de um estudante
 %ex: cursou(nomeAluno, nomeDisciplina, Nota)
@@ -182,41 +189,62 @@ calculaIRA(X, R) :- findall(Z, cursou(X, Y, Z), R). %TODO terminar de calcular a
 % cursouNota(nomeAluno, Y, Z, 60)
 %cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
 %ex: historico(nomeAluno, nomeDisciplina, Nota)
-%retornar somente nome das disciplinas: historico(nomeAluno, Y, _)
-%retornar nome e nota: historico(nomeAluno, Y, Z).
-historico(X, Y, Z) :- cursou(X, Y, Z).
+%retornar nome da materia e nota: historico(nomeAluno, R).
+historico(X, R) :- findall([Y, Z], cursou(X, Y, Z), R).
 
 %% 2- Retornar a matriz curricular de um curso
-%ex: matriz(X, siglaCurso)
-retornaMatriz(X, Y) :- matriz(X, Y). %alias
-%ex: matriz(X, siglaCurso)
-%matriz(X, Y). %direta
+%ex: matriz(siglaCurso, R)
+retornaMatriz(Y, R) :- findall(X, matriz(X, Y), R). %alias
 
 %% 3- Relação de alunos que já cursaram uma disciplina, com critério de seleção por nota
 %ex: cursou(nomeAluno, nomeDisciplina, Nota)
 %retornar nome das disciplinas: cursou(nomeAluno, Y, _)
 %retornar nome e nota: cursou(nomeAluno, Y, Z).
-%ex: cursouNota(nomeAluno, nomeDisciplina, nota, notaFiltro)
+%ex: jahCursouNota(nomeAluno, nomeDisciplina, notaFiltro, ListaDeCursadas)
 %retornar nome e notas das disciplinas aprovadas:
-% cursouNota(nomeAluno, Y, Z, 60)
-cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
+% jahCursouNotaMaior(nomeAluno, Y, 60, R)
+jahCursouNotaMaior(X, Y, A, R) :- bagof([Y, Z], (cursou(X, Y, Z), Z >= A), R).
+%retornar nome e notas das disciplinas reprovadas:
+% jahCursouNotaMenor(nomeAluno, Y, 60, R)
+jahCursouNotaMenor(X, Y, A, R) :- bagof([Y, Z], (cursou(X, Y, Z), Z =< A), R).
+%ex: jahCursou(nomeAluno, nomeDisciplina, ListaDeCursadas)
+jahCursou(X, Y, R) :- findall([X,Z], cursou(X, Y, Z), R).
 
 %% 4- Relação de disciplinas que faltam ser cursadas por um estudante
 %faltaCursar(X) :- matriz(Y, Z), cursou(X, A, _), where Z alunode(X, Z).
 
+notcommon(L1, L2, Result) :-
+
+    intersection(L1, L2, Intersec),
+    append(L1, L2, AllItems),
+    subtract(AllItems, Intersec, Result).
+
+getMatriz(Y, Z, R1) :- bagof(Y, matriz(Y, Z), R1).
+
+%faltaCursar(X, R3) :- bagof(Y, matriz(Y, Z), R1),
+%                       bagof(A, cursou(X, A, _), R2),
+%                       notcommon(R1, R2, R3), !.
+%faltaCursar(X, R3) :- 
+%                      alunoDe(X, C),
+%                      getMatriz(Y, Z, R1), Z is C,
+%                      bagof(A, cursou(X, A, _), R2),
+%                      notcommon(R1, R2, R3), !.
+%TODO faltaCursar
+
 %% 5- Relação de estudantes de um curso, com critério de seleção por nota em uma disciplina ou por IRA
 %retorna todos os alunos de um curso
 %ex: alunoDe(X, siglaCurso)
-%alunoDe(X, Y).
+%alunoDe(X, Y). %TODO predicado com lista
 
 %retorna todas os alunos e as disciplinas feitas por ele no curso e acima do filtro de nota
-%ex:alunoDe_ComNota(A, siglaCurso, B, C, D)
-%obs: usar D = 0 para exibir o histórico completo
+%ex:alunoDe_ComNota(A, siglaCurso, B, C, notaMateria)
+%obs: usar A = 0 para exibir o histórico completo
 %alunoDe_ComNota(nomeAluno, siglaCurso, nomeDisciplina, nota, filtroNota)
-alunoDe_ComNota(X, Y, B, Z, A) :- alunoDe(X, Y), cursouNota(X, B, Z, A).
+alunoDe_ComNota(X, Y, B, R, A) :- alunoDe(X, Y), jahCursouNotaMaior(X, B, A, R).
 
 %% 6- Relação de cursos que contém uma disciplina
-%ex: matriz(nomeDisciplina, Z)
+%ex: matriz(codDisciplina, Z)
 cursoContem(R, X) :- bagof(Z, matriz(X, Z), R). %com alias
 %ex: matriz(nome, Z)
 %matriz(X, Z). %direta
+

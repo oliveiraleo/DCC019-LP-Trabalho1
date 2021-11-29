@@ -1,4 +1,21 @@
 %%% Knowledge Base (Base de conhecimento)%%%
+%%% Sistema de Gestão Acadêmico %%%
+
+%Configuração inicial%
+%% Lista de predicados que podem ser modificados em tempo de execução
+:- dynamic matriz/2. % por conta da funcao adicionaMateriaCurso
+
+%% Lista de predicados que estão definidos em mais de uma área diferente da KB
+:- discontiguous alunoDe/2.
+:- discontiguous matriz/2. % por conta da funcao adicionaMateriaCurso
+:- discontiguous nomeCurso/2. % por conta da funcao de add um novo curso
+
+% Lista de cursos
+nomeCurso(cc, "Ciência da Computação").
+nomeCurso(si, "Sistemas de Informação").
+
+%ex:getCursos(listaCursos)
+getCursos(R) :- bagof([Y,X], nomeCurso(X, Y), R).
 
 % Historico escolar alunos
 
@@ -211,36 +228,33 @@ jahCursouNotaMenor(X, Y, A, R) :- bagof([Y, Z], (cursou(X, Y, Z), Z =< A), R).
 jahCursou(X, Y, R) :- findall([X,Z], cursou(X, Y, Z), R).
 
 %% 4- Relação de disciplinas que faltam ser cursadas por um estudante
-%faltaCursar(X) :- matriz(Y, Z), cursou(X, A, _), where Z alunode(X, Z).
-
-notcommon(L1, L2, Result) :-
-
-    intersection(L1, L2, Intersec),
-    append(L1, L2, AllItems),
-    subtract(AllItems, Intersec, Result).
-
+%funcao auxiliar que retorna os itens que estão em somente uma das listas passadas como parâmetro de entrada
+subtraiListas(L1, L2, Result) :-
+                             intersection(L1, L2, Intersec),
+                             append(L1, L2, AllItems),
+                             subtract(AllItems, Intersec, Result).
+%retorna a matriz de um curso
+%ex: getMatriz(nomeMateria, siglaCurso, listaMaterias)
 getMatriz(Y, Z, R1) :- bagof(Y, matriz(Y, Z), R1).
 
-%faltaCursar(X, R3) :- bagof(Y, matriz(Y, Z), R1),
-%                       bagof(A, cursou(X, A, _), R2),
-%                       notcommon(R1, R2, R3), !.
-%faltaCursar(X, R3) :- 
-%                      alunoDe(X, C),
-%                      getMatriz(Y, Z, R1), Z is C,
-%                      bagof(A, cursou(X, A, _), R2),
-%                      notcommon(R1, R2, R3), !.
-%TODO faltaCursar
+%retorna todas as matérias que faltam ser cursadas pelo aluno
+%ex: faltaCursar(nomeAluno, R)
+faltaCursar(X, R3) :-
+                      alunoDe(X, C),
+                      getMatriz(Y, C, R1),  
+                      findall(A, cursou(X, A, _), R2),
+                      subtraiListas(R1, R2, R3), !.
 
 %% 5- Relação de estudantes de um curso, com critério de seleção por nota em uma disciplina ou por IRA
 %retorna todos os alunos de um curso
-%ex: alunoDe(X, siglaCurso)
-%alunoDe(X, Y). %TODO predicado com lista
+%ex: estudanteCurso(siglaCurso, listaAlunos)
+estudanteCurso(Y, R) :- setof(X, alunoDe(X, Y), R).
 
 %retorna todas os alunos e as disciplinas feitas por ele no curso e acima do filtro de nota
 %ex:alunoDe_ComNota(A, siglaCurso, B, C, notaMateria)
 %obs: usar A = 0 para exibir o histórico completo
-%alunoDe_ComNota(nomeAluno, siglaCurso, nomeDisciplina, nota, filtroNota)
-alunoDe_ComNota(X, Y, B, R, A) :- alunoDe(X, Y), jahCursouNotaMaior(X, B, A, R).
+%estudanteCurso_ComNota(nomeAluno, siglaCurso, nomeDisciplina, nota, filtroNota)
+estudanteCurso_ComNota(X, Y, B, R, A) :- alunoDe(X, Y), jahCursouNotaMaior(X, B, A, R).
 
 %% 6- Relação de cursos que contém uma disciplina
 %ex: matriz(codDisciplina, Z)
@@ -248,3 +262,23 @@ cursoContem(R, X) :- bagof(Z, matriz(X, Z), R). %com alias
 %ex: matriz(nome, Z)
 %matriz(X, Z). %direta
 
+%% 7- Gravação e exclusão de fatos/predicados/clausulas
+%ex: adicionaMateriaCurso(nomeMateria, siglaCurso)
+adicionaMateriaCurso(X, Y) :- append('main.pl'),
+                              writeq(
+                              matriz(X, Y)
+                              ),
+                              put('.'),
+                              nl, told,
+                              ["main.pl"].
+
+%ex: adicionaCurso(siglaCurso, nomeCurso)
+adicionaCurso(X, Y) :- append('main.pl'),
+                       writeq(
+                       nomeCurso(X, Y)
+                       ),
+                       put('.'),
+                       nl, told,
+                       ["main.pl"].
+
+% Abaixo desta linha entrarão os dados inseridos nesta KB %

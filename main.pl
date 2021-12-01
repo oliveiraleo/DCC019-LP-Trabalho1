@@ -205,13 +205,17 @@ calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
 %retornar nome e notas das disciplinas aprovadas:
 % cursouNota(nomeAluno, Y, Z, 60)
 %cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
-%ex: historico(nomeAluno, nomeDisciplina, Nota)
-%retornar nome da materia e nota: historico(nomeAluno, R).
+%retornar nome da materia e nota
+%ex: historico(nomeAluno, R).
 historico(X, R) :- findall([Y, Z], cursou(X, Y, Z), R).
+%ex: historico(nomeAluno)
+historico_long(X) :- findall([Y, Z], cursou(X, Y, Z), R), print(R).
 
 %% 2- Retornar a matriz curricular de um curso
 %ex: matriz(siglaCurso, R)
-retornaMatriz(Y, R) :- findall(X, matriz(X, Y), R). %alias
+retornaMatriz(Y, R) :- bagof(X, matriz(X, Y), R).
+%ex: matriz_long(siglaCurso)
+retornaMatriz(Y) :- bagof(X, matriz(X, Y), R), print(R).
 
 %% 3- Relação de alunos que já cursaram uma disciplina, com critério de seleção por nota
 %ex: cursou(nomeAluno, nomeDisciplina, Nota)
@@ -251,7 +255,6 @@ faltaCursar(X, R3) :-
 estudanteCurso(Y, R) :- setof(X, alunoDe(X, Y), R).
 
 %retorna todas os alunos e as disciplinas feitas por ele no curso e acima do filtro de nota
-%ex:alunoDe_ComNota(A, siglaCurso, B, C, notaMateria)
 %obs: usar A = 0 para exibir o histórico completo
 %estudanteCurso_ComNota(nomeAluno, siglaCurso, nomeDisciplina, nota, filtroNota)
 estudanteCurso_ComNota(X, Y, B, R, A) :- alunoDe(X, Y), jahCursouNotaMaior(X, B, A, R).
@@ -259,8 +262,6 @@ estudanteCurso_ComNota(X, Y, B, R, A) :- alunoDe(X, Y), jahCursouNotaMaior(X, B,
 %% 6- Relação de cursos que contém uma disciplina
 %ex: matriz(codDisciplina, Z)
 cursoContem(R, X) :- bagof(Z, matriz(X, Z), R). %com alias
-%ex: matriz(nome, Z)
-%matriz(X, Z). %direta
 
 %% 7- Gravação e exclusão de fatos/predicados/clausulas
 %ex: adicionaMateriaCurso(nomeMateria, siglaCurso)

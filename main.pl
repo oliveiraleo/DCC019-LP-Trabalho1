@@ -9,6 +9,7 @@
 :- discontiguous alunoDe/2.
 :- discontiguous matriz/2. % por conta da funcao adicionaMateriaCurso
 :- discontiguous nomeCurso/2. % por conta da funcao de add um novo curso
+:- discontiguous nomeDisciplina/2. % por conta da grade/matriz dos cursos
 
 % Lista de cursos
 nomeCurso(cc, "Ciência da Computação").
@@ -50,66 +51,127 @@ cursou("José Valverde Coimbra", "Laboratório de Ciência da Computação", 85)
 
 % Grade CC
 
-%TODO anotar tambem o cod das disciplinas
-%TODO colocar a lista abaixo em ordem depois
-disciplina(dcc119, "Algoritmos").
-disciplina(ice001, "Introdução às Ciências Exatas").
-disciplina(qui126, "Laboratório de Química").
+nomeDisciplina(mat155, "Geometria Analitica e Sistemas Lineares").
+nomeDisciplina(mat154, "Cálculo I").
+nomeDisciplina(qui125, "Química Fundamental").
+nomeDisciplina(fis122, "Laboratório de Introdução às Ciências Físicas").
+nomeDisciplina(dcc119, "Algoritmos").
+nomeDisciplina(dcc120, "Laboratório de Programação").
+nomeDisciplina(qui126, "Laboratório de Química").
+nomeDisciplina(ice001, "Introdução às Ciências Exatas").
 
-matriz("Geometria Analitica e Sistemas Lineares", cc).
-matriz("Cálculo I", cc).
-matriz("Química Fundamental", cc).
-matriz("Laboratório de Introdução às Ciências Físicas", cc).
+
+matriz(mat155, cc).
+matriz(mat154, cc).
+matriz(qui125, cc).
+matriz(fis122, cc).
 matriz(dcc119, cc).
-matriz("Laboratório de Programação", cc).
+matriz(dcc120, cc).
 matriz(qui126, cc).
 matriz(ice001, cc).
 
-matriz("Cálculo II", cc).
-matriz("Introdução à Estatística", cc).
-matriz("Física I", cc).
-matriz("Laboratório de Física I", cc).
-matriz("Estrutura de Dados", cc).
-matriz("Laboratório de Programação II", cc).
-matriz("Laboratório de Estruturas e Transformações", cc).
-matriz("Laboratório de Ciência da Computação", cc).
 
-matriz("Cálculo III", cc).
-matriz("Lógica e Fundamentos da Computação", cc).
-matriz("Introdução à Teoria dos Números", cc).
-matriz("Teoria dos Grafos", cc).
-matriz("Orientação à Objetos", cc).
-matriz("Circuitos Digitais", cc).
+nomeDisciplina(mat156, "Cálculo II").
+nomeDisciplina(est028, "Introdução à Estatística").
+nomeDisciplina(fis073, "Física I").
+nomeDisciplina(fis077, "Laboratório de Física I").
+nomeDisciplina(dcc013, "Estrutura de Dados").
+nomeDisciplina(dcc107, "Laboratório de Programação II").
+nomeDisciplina(qui162, "Laboratório de Estruturas e Transformações").
+nomeDisciplina(dcc179, "Laboratório de Ciência da Computação").
 
-matriz("Álgebra Linear", cc).
-matriz("Equações Diferenciais I", cc).
-matriz("Cálculo Numérico", cc).
-matriz("Estrutura de Dados II", cc).
-matriz("Modelagem de Sistemas", cc).
-matriz("Organização de Computadores", cc).
 
-matriz("Computação Gráfica", cc).
-matriz("Inteligência Artificial", cc).
-matriz("Cálculo de Probabilidades I", cc).
-matriz("Banco de Dados", cc).
-matriz("Engenharia de Software", cc).
-matriz("Sistemas Operacionais", cc).
+matriz(mat156, cc).
+matriz(est028, cc).
+matriz(fis073, cc).
+matriz(fis077, cc).
+matriz(dcc013, cc).
+matriz(dcc107, cc).
+matriz(qui162, cc).
+matriz(dcc179, cc).
 
-matriz("Pesquisa Operacional", cc).
-matriz("Linguagens Formais", cc).
-matriz("Interação Humano-Computador", cc).
-matriz("Informática e Sociedade", cc).
-matriz("Redes de Computadores", cc).
-matriz("Sistemas Distribuídos", cc).
+nomeDisciplina(mat157, "Cálculo III").
+nomeDisciplina(dcc160, "Lógica e Fundamentos da Computação").
+nomeDisciplina(mat143, "Introdução à Teoria dos Números").
+nomeDisciplina(dcc059, "Teoria dos Grafos").
+nomeDisciplina(dcc025, "Orientação à Objetos").
+nomeDisciplina(dcc122, "Circuitos Digitais").
 
-matriz("Metodologia Científica em Computação", cc).
-matriz("Teoria da Computação", cc).
-matriz("Análise e Projeto de Algoritmos", cc).
-matriz("Segurança em Sistemas de Computação", cc).
 
-matriz("Monografia Final em Computação", cc).
-matriz("Teoria dos Computadores", cc).
-matriz("Linguagem de Programação", cc).
+matriz(mat157, cc).
+matriz(dcc160, cc).
+matriz(mat143, cc).
+matriz(dcc059, cc).
+matriz(dcc025, cc).
+matriz(dcc122, cc).
+
+
+nomeDisciplina(mat158, "Álgebra Linear").
+nomeDisciplina(mat029, "Equações Diferenciais I").
+nomeDisciplina(dcc008, "Cálculo Numérico").
+nomeDisciplina(dcc012, "Estrutura de Dados II").
+nomeDisciplina(dcc117, "Modelagem de Sistemas").
+nomeDisciplina(dcc070, "Organização de Computadores").
+
+
+matriz(mat158, cc).
+matriz(mat029, cc).
+matriz(dcc008, cc).
+matriz(dcc012, cc).
+matriz(dcc117, cc).
+matriz(dcc070, cc).
+
+
+nomeDisciplina(dcc065, "Computação Gráfica").
+nomeDisciplina(dcc014, "Inteligência Artificial").
+nomeDisciplina(est029, "Cálculo de Probabilidades I").
+nomeDisciplina(dcc060, "Banco de Dados").
+nomeDisciplina(dcc061, "Engenharia de Software").
+nomeDisciplina(dcc062, "Sistemas Operacionais").
+
+matriz(dcc065, cc).
+matriz(dcc014, cc).
+matriz(est029, cc).
+matriz(dcc060, cc).
+matriz(dcc061, cc).
+matriz(dcc062, cc).
+
+
+nomeDisciplina(dcc163, "Pesquisa Operacional").
+nomeDisciplina(dcc063, "Linguagens Formais").
+nomeDisciplina(dcc174, "Interação Humano-Computador").
+nomeDisciplina(eaddcc044, "Informática e Sociedade").
+nomeDisciplina(dcc042, "Redes de Computadores").
+nomeDisciplina(dcc064, "Sistemas Distribuídos").
+
+matriz(dcc163, cc).
+matriz(dcc063, cc).
+matriz(dcc174, cc).
+matriz(eaddcc044, cc).
+matriz(dcc042, cc).
+matriz(dcc064, cc).
+
+
+nomeDisciplina(dcc123, "Metodologia Científica em Computação").
+nomeDisciplina(dcc055, "Teoria da Computação").
+nomeDisciplina(dcc001, "Análise e Projeto de Algoritmos").
+nomeDisciplina(dcc075, "Segurança em Sistemas de Computação").
+
+
+matriz(dcc123, cc).
+matriz(dcc055, cc).
+matriz(dcc001, cc).
+matriz(dcc075, cc).
+
+
+nomeDisciplina(dcc110, "Monografia Final em Computação").
+nomeDisciplina(dcc045, "Teoria dos Computadores").
+nomeDisciplina(dcc019, "Linguagem de Programação").
+
+
+matriz(dcc110, cc).
+matriz(dcc045, cc).
+matriz(dcc019, cc).
 
 %Alunos CC
 
@@ -126,54 +188,112 @@ alunoDe("Enzo Castro Oliveira", cc).
 
 % Grade SI
 
-matriz("Cálculo I", si).
-matriz("Geometria Analítica e Sistemas Lineares", si).
-matriz("Algoritmos", si).
-matriz("Laboratório de Programação", si).
-matriz("Lógica e Fundamentos para a Computação", si).
-matriz("Introdução à Sistemas de Informação", si).
+nomeDisciplina(mat154, "Cálculo I").
+nomeDisciplina(mat155, "Geometria Analítica e Sistemas Lineares").
+nomeDisciplina(dcc119, "Algoritmos").
+nomeDisciplina(dcc120, "Laboratório de Programação").
+nomeDisciplina(dcc160, "Lógica e Fundamentos para a Computação").
+nomeDisciplina(dcc133, "Introdução à Sistemas de Informação").
 
-matriz("Cálculo II", si).
-matriz("Laboratório de Programação Web", si).
-matriz("Estrutura de Dados", si).
-matriz("Laboratório de Programação II", si).
-matriz("Princípios Gerais de Administração I", si).
-matriz("Aspectos Legais da Informática", si).
 
-matriz("Cálculo de Probabilidades I", si).
-matriz("Orientação à Objetos", si).
-matriz("Teoria dos Grafos", si).
-matriz("Contabilidade Geral e Introdutória", si).
-matriz("Informática e Sociedade", si).
+matriz(mat154, si).
+matriz(mat155, si).
+matriz(dcc119, si).
+matriz(dcc120, si).
+matriz(dcc160, si).
+matriz(dcc133, si).
 
-matriz("Organização de Computadores", si).
-matriz("Modelagem de Sistemas", si).
-matriz("Aspectos Teóricos da Computação", si).
-matriz("Estrutura de Dados II", si).
 
-matriz("Sistemas Operacionais", si).
-matriz("Inteligência Artificial", si).
-matriz("Engenharia de Software", si).
-matriz("Banco de Dados", si).
-matriz("Laboratório de Programação de Sistemas Web", si).
+nomeDisciplina(mat156, "Cálculo II").
+nomeDisciplina(dcc121, "Laboratório de Programação Web").
+nomeDisciplina(dcc013, "Estrutura de Dados").
+nomeDisciplina(dcc107, "Laboratório de Programação II").
+nomeDisciplina(cad076, "Princípios Gerais de Administração I").
+nomeDisciplina(eaddcc049, "Aspectos Legais da Informática").
 
-matriz("Redes de Computadores", si).
-matriz("Pesquisa Operacional", si).
-matriz("Interação Humano-Computador", si).
-matriz("Laboratório de Programação de Sistemas Web II", si).
-matriz("Empreendimentos em Informática", si).
+matriz(mat156, si).
+matriz(dcc121, si).
+matriz(dcc013, si).
+matriz(dcc107, si).
+matriz(cad076, si).
+matriz(eaddcc049, si).
 
-matriz("Gerência de Projetos", si).
-matriz("Teste de Software", si).
-matriz("Aspectos Avançados em Engenharia de Software", si).
-matriz("Aspectos Avançados em Banco de Dados", si).
-matriz("Aspectos Organizacionais de Sistemas de Informação", si).
-matriz("Metodologia Científica em Computação", si).
 
-matriz("Laboratório de Programação para Dispositivos Móveis", si).
-matriz("Sistema de Apoio à Decisão", si).
-matriz("Segurança e Auditoria de Sistemas", si).
-matriz("TCC em Sistemas de Informação", si).
+nomeDisciplina(est029, "Cálculo de Probabilidades I").
+nomeDisciplina(dcc025, "Orientação à Objetos").
+nomeDisciplina(dcc059, "Teoria dos Grafos").
+nomeDisciplina(fin001, "Contabilidade Geral e Introdutória").
+nomeDisciplina(eaddcc044, "Informática e Sociedade").
+
+matriz(est029, si).
+matriz(dcc025, si).
+matriz(dcc059, si).
+matriz(fin001, si).
+matriz(eaddcc044, si).
+
+
+nomeDisciplina(dcc070, "Organização de Computadores").
+nomeDisciplina(dcc117, "Modelagem de Sistemas").
+nomeDisciplina(dcc146, "Aspectos Teóricos da Computação").
+nomeDisciplina(dcc012, "Estrutura de Dados II").
+
+matriz(dcc070, si).
+matriz(dcc117, si).
+matriz(dcc146, si).
+matriz(dcc012, si).
+
+
+nomeDisciplina(dcc062, "Sistemas Operacionais").
+nomeDisciplina(dcc014, "Inteligência Artificial").
+nomeDisciplina(dcc061, "Engenharia de Software").
+nomeDisciplina(dcc060, "Banco de Dados").
+nomeDisciplina(dcc192, "Laboratório de Programação de Sistemas Web").
+
+matriz(dcc062, si).
+matriz(dcc014, si).
+matriz(dcc061, si).
+matriz(dcc060, si).
+matriz(dcc192, si).
+
+
+nomeDisciplina(dcc042, "Redes de Computadores").
+nomeDisciplina(dcc163, "Pesquisa Operacional").
+nomeDisciplina(dcc174, "Interação Humano-Computador").
+nomeDisciplina(dcc060, "Banco de Dados").
+nomeDisciplina(dcc193, "Laboratório de Programação de Sistemas Web II").
+nomeDisciplina(dcc049, "Empreendimentos em Informática").
+
+matriz(dcc042, si).
+matriz(dcc163, si).
+matriz(dcc174, si).
+matriz(dcc193, si).
+matriz(dcc049, si).
+
+
+nomeDisciplina(dcc154, "Gerência de Projetos").
+nomeDisciplina(dcc168, "Teste de Software").
+nomeDisciplina(dcc078, "Aspectos Avançados em Engenharia de Software").
+nomeDisciplina(dcc077, "Aspectos Avançados em Banco de Dados").
+nomeDisciplina(dcc145, "Aspectos Organizacionais de Sistemas de Informação").
+nomeDisciplina(dcc123, "Metodologia Científica em Computação").
+
+matriz(dcc154, si).
+matriz(dcc168, si).
+matriz(dcc078, si).
+matriz(dcc077, si).
+matriz(dcc145, si).
+matriz(dcc123, si).
+
+
+nomeDisciplina(dcc196, "Laboratório de Programação para Dispositivos Móveis").
+nomeDisciplina(dcc166, "Sistema de Apoio à Decisão").
+nomeDisciplina(dcc165, "Segurança e Auditoria de Sistemas").
+nomeDisciplina(dcc194, "TCC em Sistemas de Informação").
+
+matriz(dcc196, si).
+matriz(dcc166, si).
+matriz(dcc165, si).
+matriz(dcc194, si).
 
 %Alunos SI
 
@@ -208,7 +328,12 @@ calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
 %ex: historico(nomeAluno, R).
 historico(X, R) :- findall([Y, Z], cursou(X, Y, Z), R).
 %ex: historico(nomeAluno)
-historico_long(X) :- findall([Y, Z], cursou(X, Y, Z), R), print(R).
+%historico_long(X) :- findall([Y, Z], cursou(X, Y, Z), R), print(R).
+%ex: getHistorico(nomeAluno)
+getHistorico(X) :- findall([Y, Z], cursou(X, Y, Z), R),
+                   alunoDe(X, A), nomeCurso(A, B),
+                   format('O histórico do aluno(a) ~w,~nmatriculado(a) no curso de ~w contém as seguintes matérias:~n~n~p',
+                   [X, B, R]).
 
 %% 2- Retornar a matriz curricular de um curso
 %ex: matriz(siglaCurso, R)

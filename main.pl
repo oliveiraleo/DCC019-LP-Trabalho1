@@ -212,9 +212,13 @@ historico_long(X) :- findall([Y, Z], cursou(X, Y, Z), R), print(R).
 
 %% 2- Retornar a matriz curricular de um curso
 %ex: matriz(siglaCurso, R)
-retornaMatriz(Y, R) :- bagof(X, matriz(X, Y), R).
+%retornaMatriz(Y, R) :- bagof(X, matriz(X, Y), R).
 %ex: matriz_long(siglaCurso)
-retornaMatriz(Y) :- bagof(X, matriz(X, Y), R), print(R).
+getMatriz(Y) :- bagof(X, matriz(X, Y), R),
+                nomeCurso(Y, Z),
+                format(
+                'A matriz do curso de ~w contém as seguintes matérias:~n~n~p',
+                [Z, R]).
 
 %% 3- Relação de alunos que já cursaram uma disciplina, com critério de seleção por nota
 %ex: cursou(nomeAluno, nomeDisciplina, Nota)
@@ -268,8 +272,6 @@ estudanteCurso_ComIRA(B, Y, A, R) :-
                                      cursou(X, Y, Z),
                                      (calculaIRA(X, V), V >= A)),
                                      R).
-%TODO predicado com o IRA
-
 
 %% 6- Relação de cursos que contém uma disciplina
 %ex: matriz(codDisciplina, Z)

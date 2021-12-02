@@ -326,7 +326,7 @@ calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
 %cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
 %retornar nome da materia e nota
 %ex: historico(nomeAluno, R).
-historico(X, R) :- findall([Y, Z], cursou(X, Y, Z), R).
+%historico(X, R) :- findall([Y, Z], cursou(X, Y, Z), R).
 %ex: historico(nomeAluno)
 %historico_long(X) :- findall([Y, Z], cursou(X, Y, Z), R), print(R).
 %ex: getHistorico(nomeAluno)
@@ -346,18 +346,20 @@ getMatriz(Y) :- bagof(X, matriz(X, Y), R),
                 [Z, R]).
 
 %% 3- Relação de alunos que já cursaram uma disciplina, com critério de seleção por nota
-%ex: cursou(nomeAluno, nomeDisciplina, Nota)
-%retornar nome das disciplinas: cursou(nomeAluno, Y, _)
-%retornar nome e nota: cursou(nomeAluno, Y, Z).
-%ex: jahCursouNota(nomeAluno, nomeDisciplina, notaFiltro, ListaDeCursadas)
-%retornar nome e notas das disciplinas aprovadas:
-% jahCursouNotaMaior(nomeAluno, Y, 60, R)
-jahCursouNotaMaior(X, Y, A, R) :- bagof([X, Z], (cursou(X, Y, Z), Z >= A), R).
-%retornar nome e notas das disciplinas reprovadas:
-% jahCursouNotaMenor(nomeAluno, Y, 60, R)
-jahCursouNotaMenor(X, Y, A, R) :- bagof([X, Z], (cursou(X, Y, Z), Z =< A), R).
+%ex: jahCursouNotaMaior(nomeDisciplina, notaCorte)
+jahCursouNotaMaior(Y, A) :- bagof([X, Z], (cursou(X, Y, Z), Z >= A), R),
+                            format('Os seguintes alunos ja cursaram a disciplina de~n~w~ncom uma nota maior ou igual a ~w:~n~n~p',
+                            [Y, A, R]).
+%ex: jahCursouNotaMenor(nomeDisciplina, notaCorte)
+jahCursouNotaMenor(Y, A) :- bagof([X, Z], (cursou(X, Y, Z), Z =< A), R),
+                            format('Os seguintes alunos ja cursaram a disciplina de~n~w~ncom uma nota menor ou igual a ~w:~n~n~p',
+                            [Y, A, R]).
 %ex: jahCursou(nomeAluno, nomeDisciplina, ListaDeCursadas)
-jahCursou(X, Y, R) :- findall([X,Z], cursou(X, Y, Z), R).
+%jahCursou(X, Y, R) :- findall([X,Z], cursou(X, Y, Z), R).
+%ex: jahCursou(nomeDisciplina)
+jahCursou(Y) :- setof([X,Z], cursou(X, Y, Z), R),
+                format('Os seguintes alunos já cursaram a disciplina de~n~w~ncom as respectivas notas:~n~n~p',
+                [Y, R]).
 
 %% 4- Relação de disciplinas que faltam ser cursadas por um estudante
 %funcao auxiliar que retorna os itens que estão em somente uma das listas passadas como parâmetro de entrada

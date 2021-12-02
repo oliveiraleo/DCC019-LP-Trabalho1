@@ -194,7 +194,6 @@ somaNotas([X|Xs], L1, N1) :- somaNotas(Xs, L, N), N1 is N + X, L1 is L + 1.
 
 calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
                     somaNotas(R, L, N), V is N / L.
-%TODO terminar de calcular a media
 
 % ---Requisitos--- %
 %% 1- Retornar o histórico escolar de um estudante
@@ -224,10 +223,10 @@ retornaMatriz(Y) :- bagof(X, matriz(X, Y), R), print(R).
 %ex: jahCursouNota(nomeAluno, nomeDisciplina, notaFiltro, ListaDeCursadas)
 %retornar nome e notas das disciplinas aprovadas:
 % jahCursouNotaMaior(nomeAluno, Y, 60, R)
-jahCursouNotaMaior(X, Y, A, R) :- bagof([Y, Z], (cursou(X, Y, Z), Z >= A), R).
+jahCursouNotaMaior(X, Y, A, R) :- bagof([X, Z], (cursou(X, Y, Z), Z >= A), R).
 %retornar nome e notas das disciplinas reprovadas:
 % jahCursouNotaMenor(nomeAluno, Y, 60, R)
-jahCursouNotaMenor(X, Y, A, R) :- bagof([Y, Z], (cursou(X, Y, Z), Z =< A), R).
+jahCursouNotaMenor(X, Y, A, R) :- bagof([X, Z], (cursou(X, Y, Z), Z =< A), R).
 %ex: jahCursou(nomeAluno, nomeDisciplina, ListaDeCursadas)
 jahCursou(X, Y, R) :- findall([X,Z], cursou(X, Y, Z), R).
 
@@ -251,13 +250,26 @@ faltaCursar(X, R3) :-
 
 %% 5- Relação de estudantes de um curso, com critério de seleção por nota em uma disciplina ou por IRA
 %retorna todos os alunos de um curso
-%ex: estudanteCurso(siglaCurso, listaAlunos)
-estudanteCurso(Y, R) :- setof(X, alunoDe(X, Y), R).
+%ex: estudanteCurso(siglaCurso)
+estudanteCurso(Y) :- setof(X, alunoDe(X, Y), R), print(R).
 
 %retorna todas os alunos e as disciplinas feitas por ele no curso e acima do filtro de nota
 %obs: usar A = 0 para exibir o histórico completo
-%estudanteCurso_ComNota(nomeAluno, siglaCurso, nomeDisciplina, nota, filtroNota)
-estudanteCurso_ComNota(X, Y, B, R, A) :- alunoDe(X, Y), jahCursouNotaMaior(X, B, A, R).
+%ex: estudanteCurso_ComNotaMaior(siglaCurso, nomeDisciplina, filtroNota, lista)
+estudanteCurso_ComNotaMaior(B, Y, A, R) :- 
+                                           bagof([X, Z],
+                                           (alunoDe(X, B),
+                                           cursou(X, Y, Z), Z >= A),
+                                           R).
+%ex: estudanteCurso_ComIRA(siglaCurso, nomeDisciplina, filtroIRA, lista)
+estudanteCurso_ComIRA(B, Y, A, R) :-
+                                     findall([X, Z],
+                                     (alunoDe(X, B),
+                                     cursou(X, Y, Z),
+                                     (calculaIRA(X, V), V >= A)),
+                                     R).
+%TODO predicado com o IRA
+
 
 %% 6- Relação de cursos que contém uma disciplina
 %ex: matriz(codDisciplina, Z)

@@ -641,12 +641,16 @@ estudanteCurso(Y) :- setof(X, alunoDe(X, Y), R), print(R).
 
 %retorna todas os alunos e as disciplinas feitas por ele no curso e acima do filtro de nota
 %obs: usar A = 0 para exibir o histórico completo
-%ex: estudanteCurso_ComNotaMaior(siglaCurso, nomeDisciplina, filtroNota, lista)
-estudanteCurso_ComNotaMaior(B, Y, A, R) :- 
-                                           bagof([X, Z],
-                                           (alunoDe(X, B),
-                                           cursou(X, Y, Z), Z >= A),
-                                           R).
+%ex: estudanteCurso_ComNotaMaior(siglaCurso, codigoDisciplina, filtroNota)
+estudanteCurso_ComNotaMaior(B, Y, A) :- 
+                                        bagof([X, Z],
+                                        (alunoDe(X, B),
+                                        cursou(X, Y, Z), Z >= A),
+                                        R),
+                                        nomeCurso(B, C), nomeDisciplina(Y, D),
+                                        format('Os alunos do curso de ~w e ~nque cursaram a disciplina de ~w~ncom a nota maior ou igual a ~w, são os seguintes:~n~n~p',
+                                        [C, D, A, R]), !.
+
 %ex: estudanteCurso_ComIRA(siglaCurso, codigoDisciplina, filtroIRA)
 estudanteCurso_ComIRA(B, A) :-
                                setof([X, V],

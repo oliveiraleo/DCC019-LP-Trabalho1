@@ -21,32 +21,32 @@ getCursos(R) :- bagof([Y,X], nomeCurso(X, Y), R).
 % Historico escolar alunos
 
 % Fátima Martins Matias
-cursou("Fátima Martins Matias", "Algoritmos", 60).
-cursou("Fátima Martins Matias", "Laboratório de Química", 75).
+cursou("Fátima Martins Matias", dcc119, 60).
+cursou("Fátima Martins Matias", qui126, 75).
 cursou("Fátima Martins Matias", ice001, 100).
-cursou("Fátima Martins Matias", "Cálculo I", 76).
-cursou("Fátima Martins Matias", "Laboratório de Programação", 60).
-cursou("Fátima Martins Matias", "Laboratório de Química", 71).
-cursou("Fátima Martins Matias", "Laboratório de Introdução às Ciências Físicas", 81).
-cursou("Fátima Martins Matias", "Química Fundamental", 78).
+cursou("Fátima Martins Matias", mat154, 76).
+cursou("Fátima Martins Matias", dcc120, 60).
+cursou("Fátima Martins Matias", qui126, 71).
+cursou("Fátima Martins Matias", fis122, 81).
+cursou("Fátima Martins Matias", qui125, 78).
 
 % José Valverde Coimbra
-cursou("José Valverde Coimbra", "Algoritmos", 70).
-cursou("José Valverde Coimbra", "Laboratório de Química", 60).
+cursou("José Valverde Coimbra", dcc119, 70).
+cursou("José Valverde Coimbra", qui126, 60).
 cursou("José Valverde Coimbra", ice001, 90).
-cursou("José Valverde Coimbra", "Cálculo I", 62).
-cursou("José Valverde Coimbra", "Laboratório de Programação", 60).
-cursou("José Valverde Coimbra", "Laboratório de Química", 79).
-cursou("José Valverde Coimbra", "Laboratório de Introdução às Ciências Físicas", 61).
-cursou("José Valverde Coimbra", "Química Fundamental", 68).
-cursou("José Valverde Coimbra", "Cálculo II", 70).
-cursou("José Valverde Coimbra", "Introdução à Estatística", 80).
-cursou("José Valverde Coimbra", "Laboratório de Física I", 72).
-cursou("José Valverde Coimbra", "Estrutura de Dados", 76).
-cursou("José Valverde Coimbra", "Física I", 67).
-cursou("José Valverde Coimbra", "Laboratório de Programação II", 76).
-cursou("José Valverde Coimbra", "Laboratório de Estruturas e Transformações", 70).
-cursou("José Valverde Coimbra", "Laboratório de Ciência da Computação", 85).
+cursou("José Valverde Coimbra", mat154, 62).
+cursou("José Valverde Coimbra", dcc120, 60).
+cursou("José Valverde Coimbra", qui126, 79).
+cursou("José Valverde Coimbra", fis122, 61).
+cursou("José Valverde Coimbra", qui125, 68).
+cursou("José Valverde Coimbra", mat156, 70).
+cursou("José Valverde Coimbra", est028, 80).
+cursou("José Valverde Coimbra", fis077, 72).
+cursou("José Valverde Coimbra", dcc013, 76).
+cursou("José Valverde Coimbra", fis073, 67).
+cursou("José Valverde Coimbra", dcc107, 76).
+cursou("José Valverde Coimbra", qui126, 70).
+cursou("José Valverde Coimbra", dcc179, 85).
 
 
 % Grade CC
@@ -363,21 +363,24 @@ jahCursou(Y) :- setof([X,Z], cursou(X, Y, Z), R),
 
 %% 4- Relação de disciplinas que faltam ser cursadas por um estudante
 %funcao auxiliar que retorna os itens que estão em somente uma das listas passadas como parâmetro de entrada
-subtraiListas(L1, L2, Result) :-
-                             intersection(L1, L2, Intersec),
-                             append(L1, L2, AllItems),
-                             subtract(AllItems, Intersec, Result).
+subtraiListas(L1, L2, R) :-
+                            intersection(L1, L2, Intersec),
+                            append(L1, L2, AllItems),
+                            subtract(AllItems, Intersec, R).
 %retorna a matriz de um curso
 %ex: getMatriz(nomeMateria, siglaCurso, listaMaterias)
-getMatriz(Y, Z, R1) :- bagof(Y, matriz(Y, Z), R1).
+%getMatriz_aux(Z, R1) :- bagof(Y, matriz(Y, Z), R1).
 
 %retorna todas as matérias que faltam ser cursadas pelo aluno
 %ex: faltaCursar(nomeAluno, R)
-faltaCursar(X, R3) :-
-                      alunoDe(X, C),
-                      getMatriz(Y, C, R1),  
-                      findall(A, cursou(X, A, _), R2),
-                      subtraiListas(R1, R2, R3), !.
+faltaCursar(X) :-
+                  alunoDe(X, C),
+                  bagof(Y, matriz(Y, Z), R1),  
+                  findall(A, cursou(X, A, B), R2),
+                  subtraiListas(R1, R2, R3), !,
+                  nomeCurso(B, Y),
+                  format('O aluno(a) ~w,~nmatriculado(a) no curso de ~w,~nainda precisa cursar as seguintes disciplinas:~n~n~p',
+                  [X, Y, R3]), !.
 
 %% 5- Relação de estudantes de um curso, com critério de seleção por nota em uma disciplina ou por IRA
 %retorna todos os alunos de um curso

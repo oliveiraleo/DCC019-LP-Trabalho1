@@ -359,7 +359,7 @@ jahCursou(Y) :- setof([X,Z], cursou(X, Y, Z), R),
 %retorna todas as matérias que faltam ser cursadas pelo aluno
 %ex: faltaCursar(nomeAluno, R)
 faltaCursar(X) :-
-                  alunoDe(X, C),
+                  alunoDe(X, Z),
                   bagof(Y, matriz(Y, Z), R1),  
                   findall(A, cursou(X, A, B), R2),
                   subtraiListas(R1, R2, R3), !,
@@ -389,8 +389,11 @@ estudanteCurso_ComIRA(B, Y, A, R) :-
                                      R).
 
 %% 6- Relação de cursos que contém uma disciplina
-%ex: matriz(codDisciplina, Z)
-cursoContem(R, X) :- bagof(Z, matriz(X, Z), R). %com alias
+%ex: cursoContem(codDisciplina)
+cursoContem(X) :- bagof([Z, A], (matriz(X, Z), nomeCurso(Z, A)), R),
+                  nomeDisciplina(X, Y),
+                  format('A matéria de ~w está contida nos cursos de:~n~n~p',
+                  [Y, R]), !.
 
 %% 7- Gravação e exclusão de fatos/predicados/clausulas
 %ex: adicionaMateriaCurso(nomeMateria, siglaCurso)

@@ -381,12 +381,14 @@ estudanteCurso_ComNotaMaior(B, Y, A, R) :-
                                            cursou(X, Y, Z), Z >= A),
                                            R).
 %ex: estudanteCurso_ComIRA(siglaCurso, nomeDisciplina, filtroIRA, lista)
-estudanteCurso_ComIRA(B, Y, A, R) :-
-                                     findall([X, Z],
-                                     (alunoDe(X, B),
-                                     cursou(X, Y, Z),
-                                     (calculaIRA(X, V), V >= A)),
-                                     R).
+estudanteCurso_ComIRA(B, Y, A) :-
+                                  setof([X, Z, V],
+                                  (alunoDe(X, B),
+                                  cursou(X, Y, Z),
+                                  (calculaIRA(X, V), V >= A)), R),
+                                  nomeCurso(B, C), nomeDisciplina(Y, D),
+                                  format('Os alunos do curso de ~w,~nque cursaram a disciplina de ~w e~npossuem o IRA maior ou igual a ~w, são:~nOBS: Formato de impressão dos dados:~n[nomeAluno, notaDisciplina, IRA]~n~n~p',
+                                  [C, D, A, R]), !.
 
 %% 6- Relação de cursos que contém uma disciplina
 %ex: cursoContem(codDisciplina)

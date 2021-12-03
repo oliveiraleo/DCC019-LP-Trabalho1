@@ -18,7 +18,7 @@ nomeCurso(si, "Sistemas de Informação").
 %ex:getCursos(listaCursos)
 getCursos(R) :- bagof([Y,X], nomeCurso(X, Y), R).
 
-% Historico escolar alunos
+%%Historico escolar alunos cc
 
 % Fátima Martins Matias
 cursou("Fátima Martins Matias", dcc119, 60).
@@ -48,6 +48,270 @@ cursou("José Valverde Coimbra", dcc107, 76).
 cursou("José Valverde Coimbra", qui126, 70).
 cursou("José Valverde Coimbra", dcc179, 85).
 
+% Jorge Marcos Ortega
+cursou("Jorge Marcos Ortega", mat155, 90).
+cursou("Jorge Marcos Ortega", mat154, 87).
+cursou("Jorge Marcos Ortega", qui125, 78).
+cursou("Jorge Marcos Ortega", fis122, 80).
+cursou("Jorge Marcos Ortega", dcc119, 88).
+cursou("Jorge Marcos Ortega", dcc120, 88).
+cursou("Jorge Marcos Ortega", qui126, 80).
+cursou("Jorge Marcos Ortega", ice001, 84).
+
+% Davi Silva Araujo
+cursou("Davi Silva Araujo", mat155, 80).
+cursou("Davi Silva Araujo", mat154, 69).
+cursou("Davi Silva Araujo", qui125, 71).
+cursou("Davi Silva Araujo", fis122, 65).
+cursou("Davi Silva Araujo", dcc119, 70).
+cursou("Davi Silva Araujo", dcc120, 70).
+cursou("Davi Silva Araujo", qui126, 69).
+cursou("Davi Silva Araujo", ice001, 74).
+
+% Gustavo Melo Cavalcanti
+cursou("Gustavo Melo Cavalcanti", mat155, 78).
+cursou("Gustavo Melo Cavalcanti", mat154, 75).
+cursou("Gustavo Melo Cavalcanti", qui125, 69).
+cursou("Gustavo Melo Cavalcanti", fis122, 75).
+cursou("Gustavo Melo Cavalcanti", dcc119, 80).
+cursou("Gustavo Melo Cavalcanti", dcc120, 80).
+cursou("Gustavo Melo Cavalcanti", qui126, 68).
+cursou("Gustavo Melo Cavalcanti", ice001, 74).
+
+% Cauã Souza Fernandes
+cursou("Cauã Souza Fernandes", mat155, 88).
+cursou("Cauã Souza Fernandes", mat154, 70).
+cursou("Cauã Souza Fernandes", qui125, 68).
+cursou("Cauã Souza Fernandes", fis122, 65).
+cursou("Cauã Souza Fernandes", dcc119, 70).
+cursou("Cauã Souza Fernandes", dcc120, 70).
+cursou("Cauã Souza Fernandes", qui126, 68).
+cursou("Cauã Souza Fernandes", ice001, 90).
+cursou("Cauã Souza Fernandes", mat156, 74).
+cursou("Cauã Souza Fernandes", est028, 86).
+cursou("Cauã Souza Fernandes", fis073, 67).
+cursou("Cauã Souza Fernandes", fis077, 72).
+cursou("Cauã Souza Fernandes", dcc013, 76).
+cursou("Cauã Souza Fernandes", dcc107, 76).
+cursou("Cauã Souza Fernandes", qui162, 70).
+cursou("Cauã Souza Fernandes", dcc179, 85).
+
+% Márcio Receputi Faria
+cursou("Márcio Receputi Faria", mat155, 88).
+cursou("Márcio Receputi Faria", mat154, 90).
+cursou("Márcio Receputi Faria", qui125, 70).
+cursou("Márcio Receputi Faria", fis122, 69).
+cursou("Márcio Receputi Faria", dcc119, 92).
+cursou("Márcio Receputi Faria", dcc120, 92).
+cursou("Márcio Receputi Faria", qui126, 68).
+cursou("Márcio Receputi Faria", ice001, 90).
+cursou("Márcio Receputi Faria", mat156, 94).
+cursou("Márcio Receputi Faria", est028, 86).
+cursou("Márcio Receputi Faria", fis073, 67).
+cursou("Márcio Receputi Faria", fis077, 72).
+cursou("Márcio Receputi Faria", dcc013, 88).
+cursou("Márcio Receputi Faria", dcc107, 76).
+cursou("Márcio Receputi Faria", qui162, 75).
+cursou("Márcio Receputi Faria", dcc179, 80).
+
+% Arthur Correia Barbosa
+cursou("Arthur Correia Barbosa", mat155, 88).
+cursou("Arthur Correia Barbosa", mat154, 87).
+cursou("Arthur Correia Barbosa", qui125, 75).
+cursou("Arthur Correia Barbosa", fis122, 72).
+cursou("Arthur Correia Barbosa", dcc119, 84).
+cursou("Arthur Correia Barbosa", dcc120, 84).
+cursou("Arthur Correia Barbosa", qui126, 66).
+cursou("Arthur Correia Barbosa", ice001, 90).
+cursou("Arthur Correia Barbosa", mat156, 90).
+cursou("Arthur Correia Barbosa", est028, 86).
+cursou("Arthur Correia Barbosa", fis073, 67).
+cursou("Arthur Correia Barbosa", fis077, 72).
+cursou("Arthur Correia Barbosa", dcc013, 87).
+cursou("Arthur Correia Barbosa", dcc107, 78).
+cursou("Arthur Correia Barbosa", qui162, 73).
+cursou("Arthur Correia Barbosa", dcc179, 86).
+
+% Vitor Alves Correia
+cursou("Vitor Alves Correia", mat155, 88).
+cursou("Vitor Alves Correia", mat154, 87).
+cursou("Vitor Alves Correia", qui125, 75).
+cursou("Vitor Alves Correia", fis122, 72).
+cursou("Vitor Alves Correia", dcc119, 89).
+cursou("Vitor Alves Correia", dcc120, 89).
+cursou("Vitor Alves Correia", qui126, 66).
+cursou("Vitor Alves Correia", ice001, 90).
+cursou("Vitor Alves Correia", mat156, 90).
+cursou("Vitor Alves Correia", est028, 86).
+cursou("Vitor Alves Correia", fis073, 67).
+cursou("Vitor Alves Correia", fis077, 72).
+cursou("Vitor Alves Correia", dcc013, 87).
+cursou("Vitor Alves Correia", dcc107, 78).
+cursou("Vitor Alves Correia", qui162, 73).
+cursou("Vitor Alves Correia", dcc179, 86).
+cursou("Vitor Alves Correia", mat157, 78).
+cursou("Vitor Alves Correia", dcc160, 76).
+cursou("Vitor Alves Correia", mat143, 87).
+cursou("Vitor Alves Correia", dcc059, 80).
+cursou("Vitor Alves Correia", dcc025, 88).
+cursou("Vitor Alves Correia", dcc122, 90).
+
+
+% Enzo Castro Oliveira
+cursou("Enzo Castro Oliveira", mat155, 80).
+cursou("Enzo Castro Oliveira", mat154, 68).
+cursou("Enzo Castro Oliveira", qui125, 70).
+cursou("Enzo Castro Oliveira", fis122, 72).
+cursou("Enzo Castro Oliveira", dcc119, 69).
+cursou("Enzo Castro Oliveira", dcc120, 69).
+cursou("Enzo Castro Oliveira", qui126, 66).
+cursou("Enzo Castro Oliveira", ice001, 80).
+cursou("Enzo Castro Oliveira", mat156, 76).
+cursou("Enzo Castro Oliveira", est028, 74).
+cursou("Enzo Castro Oliveira", fis073, 67).
+cursou("Enzo Castro Oliveira", fis077, 72).
+cursou("Enzo Castro Oliveira", dcc013, 73).
+cursou("Enzo Castro Oliveira", dcc107, 78).
+cursou("Enzo Castro Oliveira", qui162, 73).
+cursou("Enzo Castro Oliveira", dcc179, 86).
+cursou("Enzo Castro Oliveira", mat157, 78).
+cursou("Enzo Castro Oliveira", dcc160, 76).
+cursou("Enzo Castro Oliveira", mat143, 87).
+cursou("Enzo Castro Oliveira", dcc059, 80).
+cursou("Enzo Castro Oliveira", dcc025, 88).
+cursou("Enzo Castro Oliveira", dcc122, 71).
+
+%%Historico escolar alunos si
+
+% Estefany Toscano Canário
+cursou("Estefany Toscano Canário", mat154, 76).
+cursou("Estefany Toscano Canário", mat155, 82).
+cursou("Estefany Toscano Canário", dcc119, 67).
+cursou("Estefany Toscano Canário", dcc120, 67).
+cursou("Estefany Toscano Canário", dcc160, 84).
+cursou("Estefany Toscano Canário", dcc133, 80).
+
+% Nayla Belchior Salgado
+cursou("Nayla Belchior Salgado", mat154, 80).
+cursou("Nayla Belchior Salgado", mat155, 84).
+cursou("Nayla Belchior Salgado", dcc119, 73).
+cursou("Nayla Belchior Salgado", dcc120, 73).
+cursou("Nayla Belchior Salgado", dcc160, 80).
+cursou("Nayla Belchior Salgado", dcc133, 82).
+
+
+% Clara da Granja Teodoro
+cursou("Clara da Granja Teodoro", mat154, 80).
+cursou("Clara da Granja Teodoro", mat155, 84).
+cursou("Clara da Granja Teodoro", dcc119, 73).
+cursou("Clara da Granja Teodoro", dcc120, 73).
+cursou("Clara da Granja Teodoro", dcc160, 80).
+cursou("Clara da Granja Teodoro", dcc133, 82).
+
+
+% Sasha Nolasco Oliveira
+cursou("Sasha Nolasco Oliveira", mat154, 87).
+cursou("Sasha Nolasco Oliveira", mat155, 89).
+cursou("Sasha Nolasco Oliveira", dcc119, 90).
+cursou("Sasha Nolasco Oliveira", dcc120, 90).
+cursou("Sasha Nolasco Oliveira", dcc160, 94).
+cursou("Sasha Nolasco Oliveira", dcc133, 88).
+
+
+% Davi Goncalves Oliveira
+cursou("Davi Goncalves Oliveira", mat154, 83).
+cursou("Davi Goncalves Oliveira", mat155, 80).
+cursou("Davi Goncalves Oliveira", dcc119, 77).
+cursou("Davi Goncalves Oliveira", dcc120, 77).
+cursou("Davi Goncalves Oliveira", dcc160, 88).
+cursou("Davi Goncalves Oliveira", dcc133, 85).
+cursou("Davi Goncalves Oliveira", mat156, 79).
+cursou("Davi Goncalves Oliveira", dcc121, 89).
+cursou("Davi Goncalves Oliveira", dcc013, 82).
+cursou("Davi Goncalves Oliveira", dcc107, 81).
+cursou("Davi Goncalves Oliveira", cad076, 79).
+cursou("Davi Goncalves Oliveira", eaddcc049, 90).
+
+
+% Lucas Barros Azevedo
+cursou("Lucas Barros Azevedo", mat154, 80).
+cursou("Lucas Barros Azevedo", mat155, 76).
+cursou("Lucas Barros Azevedo", dcc119, 70).
+cursou("Lucas Barros Azevedo", dcc120, 70).
+cursou("Lucas Barros Azevedo", dcc160, 88).
+cursou("Lucas Barros Azevedo", dcc133, 85).
+cursou("Lucas Barros Azevedo", mat156, 79).
+cursou("Lucas Barros Azevedo", dcc121, 89).
+cursou("Lucas Barros Azevedo", dcc013, 69).
+cursou("Lucas Barros Azevedo", dcc107, 81).
+cursou("Lucas Barros Azevedo", cad076, 80).
+cursou("Lucas Barros Azevedo", eaddcc049, 92).
+
+% Gabriel Correia Castro
+cursou("Gabriel Correia Castro", mat154, 69).
+cursou("Gabriel Correia Castro", mat155, 70).
+cursou("Gabriel Correia Castro", dcc119, 62).
+cursou("Gabriel Correia Castro", dcc120, 62).
+cursou("Gabriel Correia Castro", dcc160, 80).
+cursou("Gabriel Correia Castro", dcc133, 78).
+cursou("Gabriel Correia Castro", mat156, 65).
+cursou("Gabriel Correia Castro", dcc121, 89).
+cursou("Gabriel Correia Castro", dcc013, 65).
+cursou("Gabriel Correia Castro", dcc107, 74).
+cursou("Gabriel Correia Castro", cad076, 78).
+cursou("Gabriel Correia Castro", eaddcc049, 82).
+
+% Kaike Dias Melo
+cursou("Kaike Dias Melo", mat154, 61).
+cursou("Kaike Dias Melo", mat155, 60).
+cursou("Kaike Dias Melo", dcc119, 63).
+cursou("Kaike Dias Melo", dcc120, 63).
+cursou("Kaike Dias Melo", dcc160, 79).
+cursou("Kaike Dias Melo", dcc133, 81).
+cursou("Kaike Dias Melo", mat156, 62).
+cursou("Kaike Dias Melo", dcc121, 80).
+cursou("Kaike Dias Melo", dcc013, 65).
+cursou("Kaike Dias Melo", dcc107, 65).
+cursou("Kaike Dias Melo", cad076, 70).
+cursou("Kaike Dias Melo", eaddcc049, 74).
+
+% Marcelo Dias Souza
+cursou("Marcelo Dias Souza", mat154, 70).
+cursou("Marcelo Dias Souza", mat155, 68).
+cursou("Marcelo Dias Souza", dcc119, 63).
+cursou("Marcelo Dias Souza", dcc120, 63).
+cursou("Marcelo Dias Souza", dcc160, 79).
+cursou("Marcelo Dias Souza", dcc133, 81).
+cursou("Marcelo Dias Souza", mat156, 74).
+cursou("Marcelo Dias Souza", dcc121, 80).
+cursou("Marcelo Dias Souza", dcc013, 70).
+cursou("Marcelo Dias Souza", dcc107, 70).
+cursou("Marcelo Dias Souza", cad076, 70).
+cursou("Marcelo Dias Souza", eaddcc049, 74).
+cursou("Marcelo Dias Souza", est029, 80).
+cursou("Marcelo Dias Souza", dcc025, 65).
+cursou("Marcelo Dias Souza", dcc059, 66).
+cursou("Marcelo Dias Souza", fin001, 70).
+cursou("Marcelo Dias Souza", eaddcc044, 74).
+
+% Daniel Lima Fernandes
+cursou("Daniel Lima Fernandes", mat154, 80).
+cursou("Daniel Lima Fernandes", mat155, 75).
+cursou("Daniel Lima Fernandes", dcc119, 89).
+cursou("Daniel Lima Fernandes", dcc120, 89).
+cursou("Daniel Lima Fernandes", dcc160, 79).
+cursou("Daniel Lima Fernandes", dcc133, 81).
+cursou("Daniel Lima Fernandes", mat156, 674).
+cursou("Daniel Lima Fernandes", dcc121, 80).
+cursou("Daniel Lima Fernandes", dcc013, 85).
+cursou("Daniel Lima Fernandes", dcc107, 85).
+cursou("Daniel Lima Fernandes", cad076, 70).
+cursou("Daniel Lima Fernandes", eaddcc049, 74).
+cursou("Daniel Lima Fernandes", est029, 80).
+cursou("Daniel Lima Fernandes", dcc025, 73).
+cursou("Daniel Lima Fernandes", dcc059, 70).
+cursou("Daniel Lima Fernandes", fin001, 70).
+cursou("Daniel Lima Fernandes", eaddcc044, 74).
 
 % Grade CC
 
@@ -398,14 +662,19 @@ cursoContem(X) :- bagof([Z, A], (matriz(X, Z), nomeCurso(Z, A)), R),
                   [Y, R]), !.
 
 %% 7- Gravação e exclusão de fatos/predicados/clausulas
-%ex: adicionaMateriaCurso(nomeMateria, siglaCurso)
-adicionaMateriaCurso(X, Y) :- append('main.pl'),
-                              writeq(
-                              matriz(X, Y)
-                              ),
-                              put('.'),
-                              nl, told,
-                              ["main.pl"].
+%ex: adicionaMateriaCurso(codigoMateria, nomeMateria, siglaCurso)
+adicionaMateriaCurso(X, Y, Z) :- append('main.pl'),
+                                 writeq(
+                                 matriz(X, Z)
+                                 ),
+                                 put('.'),
+                                 nl,
+                                 writeq(
+                                 nomeDisciplina(X, Y)
+                                 ),
+                                 put('.'),
+                                 nl, told,
+                                 ["main.pl"].
 
 %ex: adicionaCurso(siglaCurso, nomeCurso)
 adicionaCurso(X, Y) :- append('main.pl'),
@@ -416,4 +685,14 @@ adicionaCurso(X, Y) :- append('main.pl'),
                        nl, told,
                        ["main.pl"].
 
+%ex: adicionaAluno(nomeAluno, siglaCurso)
+adicionaAluno(X, Y) :- append('main-test.pl'),
+                       writeq(
+                       alunoDe(X, Y)
+                       ),
+                       put('.'),
+                       nl, told,
+                       ["main-test.pl"].
+
 % Abaixo desta linha entrarão os dados inseridos nesta KB %
+

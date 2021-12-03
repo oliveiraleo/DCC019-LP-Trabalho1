@@ -3,12 +3,15 @@
 
 %Configuração inicial%
 %% Lista de predicados que podem ser modificados em tempo de execução
-:- dynamic matriz/2. % por conta da funcao adicionaMateriaCurso
+:- dynamic nomeCurso/2. % por conta do predicado removeCurso
+:- dynamic alunoDe/2. % por conta do predicado removeAluno
+:- dynamic matriz/2. % por conta do predicado removeMateriaCurso
+:- dynamic nomeDisciplina/2. % por conta do predicado removeMateriaCurso
 
-%% Lista de predicados que estão definidos em mais de uma área diferente da KB
-:- discontiguous alunoDe/2.
-:- discontiguous matriz/2. % por conta da funcao adicionaMateriaCurso
-:- discontiguous nomeCurso/2. % por conta da funcao de add um novo curso
+%% Lista de predicados que estão definidos em mais de uma área diferente do arquivo da KB
+:- discontiguous alunoDe/2. % por conta do predicado adicionaAluno
+:- discontiguous matriz/2. % por conta do predicado adicionaMateriaCurso
+:- discontiguous nomeCurso/2. % por conta do predicado adicionaCurso
 :- discontiguous nomeDisciplina/2. % por conta da grade/matriz dos cursos
 
 % Lista de cursos
@@ -686,13 +689,36 @@ adicionaCurso(X, Y) :- append('main.pl'),
                        ["main.pl"].
 
 %ex: adicionaAluno(nomeAluno, siglaCurso)
-adicionaAluno(X, Y) :- append('main-test.pl'),
+adicionaAluno(X, Y) :- append('main.pl'),
                        writeq(
                        alunoDe(X, Y)
                        ),
                        put('.'),
                        nl, told,
-                       ["main-test.pl"].
+                       ["main.pl"].
+
+%ex: removeMateria(codigoMateria, nomeMateria, siglaCurso).
+removeMateriaCurso(X, Y, Z) :- open('main-test.pl', append, S),
+                               format(S,
+                               ':- retract(matriz(~q,~q)).~n',
+                               [X, Z]),
+                               format(S,
+                               ':- retract(nomeDisciplina(~q,~q)).~n',
+                               [X, Y]),
+                               close(S),
+                               ["main-test.pl"].
+
+%ex: removeCurso(siglaCurso, nomeCurso).
+removeCurso(X, Y) :- open('main.pl', append, S),
+                     format(S, ':- retract(nomeCurso(~q,~q)).~n', [X, Y]),
+                     close(S),
+                     ["main.pl"].
+
+%ex: removeAluno(nomeAluno, siglaCurso).
+removeAluno(X, Y) :- open('main.pl', append, S),
+                     format(S, ':- retract(alunoDe(~q,~q)).~n', [X, Y]),
+                     close(S),
+                     ["main.pl"].
 
 % Abaixo desta linha entrarão os dados inseridos nesta KB %
 

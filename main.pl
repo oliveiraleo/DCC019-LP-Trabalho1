@@ -315,20 +315,14 @@ somaNotas([X|Xs], L1, N1) :- somaNotas(Xs, L, N), N1 is N + X, L1 is L + 1.
 calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
                     somaNotas(R, L, N), V is N / L.
 
+%funcao auxiliar que retorna os itens que estão em somente uma das listas passadas como parâmetro de entrada
+subtraiListas(L1, L2, R) :-
+                            intersection(L1, L2, Intersec),
+                            append(L1, L2, AllItems),
+                            subtract(AllItems, Intersec, R).
+
 % ---Requisitos--- %
 %% 1- Retornar o histórico escolar de um estudante
-%ex: cursou(nomeAluno, nomeDisciplina, Nota)
-%retornar nome das disciplinas: cursou(nomeAluno, Y, _)
-%retornar nome e nota: cursou(nomeAluno, Y, Z).
-%ex: cursouNota(nomeAluno, nomeDisciplina, nota, notaFiltro)
-%retornar nome e notas das disciplinas aprovadas:
-% cursouNota(nomeAluno, Y, Z, 60)
-%cursouNota(X, Y, Z, A) :- cursou(X, Y, Z), Z >= A.
-%retornar nome da materia e nota
-%ex: historico(nomeAluno, R).
-%historico(X, R) :- findall([Y, Z], cursou(X, Y, Z), R).
-%ex: historico(nomeAluno)
-%historico_long(X) :- findall([Y, Z], cursou(X, Y, Z), R), print(R).
 %ex: getHistorico(nomeAluno)
 getHistorico(X) :- findall([Y, Z], cursou(X, Y, Z), R),
                    alunoDe(X, A), nomeCurso(A, B),
@@ -362,15 +356,6 @@ jahCursou(Y) :- setof([X,Z], cursou(X, Y, Z), R),
                 [Y, R]).
 
 %% 4- Relação de disciplinas que faltam ser cursadas por um estudante
-%funcao auxiliar que retorna os itens que estão em somente uma das listas passadas como parâmetro de entrada
-subtraiListas(L1, L2, R) :-
-                            intersection(L1, L2, Intersec),
-                            append(L1, L2, AllItems),
-                            subtract(AllItems, Intersec, R).
-%retorna a matriz de um curso
-%ex: getMatriz(nomeMateria, siglaCurso, listaMaterias)
-%getMatriz_aux(Z, R1) :- bagof(Y, matriz(Y, Z), R1).
-
 %retorna todas as matérias que faltam ser cursadas pelo aluno
 %ex: faltaCursar(nomeAluno, R)
 faltaCursar(X) :-

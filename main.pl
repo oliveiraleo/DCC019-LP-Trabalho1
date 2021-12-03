@@ -579,7 +579,7 @@ alunoDe("Daniel Lima Fernandes", si).
 somaNotas([], 0, 0). % se a lista for vazia, nao ha o que somar
 somaNotas([X|Xs], L1, N1) :- somaNotas(Xs, L, N), N1 is N + X, L1 is L + 1.
 
-calculaIRA(X, V) :- findall(Z, cursou(X, Y, Z), R),
+calculaIRA(X, V) :- findall(Z, cursou(X, _, Z), R),
                     somaNotas(R, L, N), V is N / L.
 
 %funcao auxiliar que retorna os itens que estão em somente uma das listas passadas como parâmetro de entrada
@@ -647,15 +647,14 @@ estudanteCurso_ComNotaMaior(B, Y, A, R) :-
                                            (alunoDe(X, B),
                                            cursou(X, Y, Z), Z >= A),
                                            R).
-%ex: estudanteCurso_ComIRA(siglaCurso, nomeDisciplina, filtroIRA, lista)
-estudanteCurso_ComIRA(B, Y, A) :-
-                                  setof([X, Z, V],
-                                  (alunoDe(X, B),
-                                  cursou(X, Y, Z),
-                                  (calculaIRA(X, V), V >= A)), R),
-                                  nomeCurso(B, C), nomeDisciplina(Y, D),
-                                  format('Os alunos do curso de ~w,~nque cursaram a disciplina de ~w e~npossuem o IRA maior ou igual a ~w, são:~nOBS: Formato de impressão dos dados:~n[nomeAluno, notaDisciplina, IRA]~n~n~p',
-                                  [C, D, A, R]), !.
+%ex: estudanteCurso_ComIRA(siglaCurso, codigoDisciplina, filtroIRA)
+estudanteCurso_ComIRA(B, A) :-
+                               setof([X, V],
+                               (alunoDe(X, B),
+                               (calculaIRA(X, V), V >= A)), R),
+                               nomeCurso(B, C),
+                               format('Os alunos do curso de ~w e~nque possuem o IRA maior ou igual a ~w, são:~n~n~p',
+                               [C, A, R]), !.
 
 %% 6- Relação de cursos que contém uma disciplina
 %ex: cursoContem(codDisciplina)

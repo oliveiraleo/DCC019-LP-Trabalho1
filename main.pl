@@ -599,7 +599,7 @@ getHistorico(X) :- findall([Y, Z], cursou(X, Y, Z), R),
 %% 2- Retornar a matriz curricular de um curso
 %ex: matriz(siglaCurso, R)
 %retornaMatriz(Y, R) :- bagof(X, matriz(X, Y), R).
-%ex: matriz_long(siglaCurso)
+%ex: getMatriz(siglaCurso)
 getMatriz(Y) :- bagof(X, matriz(X, Y), R),
                 nomeCurso(Y, Z),
                 format(
@@ -609,22 +609,25 @@ getMatriz(Y) :- bagof(X, matriz(X, Y), R),
 %% 3- Relação de alunos que já cursaram uma disciplina, com critério de seleção por nota
 %ex: jahCursouNotaMaior(nomeDisciplina, notaCorte)
 jahCursouNotaMaior(Y, A) :- bagof([X, Z], (cursou(X, Y, Z), Z >= A), R),
+                            nomeDisciplina(Y, B),
                             format('Os seguintes alunos ja cursaram a disciplina de~n~w~ncom uma nota maior ou igual a ~w:~n~n~p',
-                            [Y, A, R]).
+                            [B, A, R]), !.
 %ex: jahCursouNotaMenor(nomeDisciplina, notaCorte)
 jahCursouNotaMenor(Y, A) :- bagof([X, Z], (cursou(X, Y, Z), Z =< A), R),
+                            nomeDisciplina(Y, B),
                             format('Os seguintes alunos ja cursaram a disciplina de~n~w~ncom uma nota menor ou igual a ~w:~n~n~p',
-                            [Y, A, R]).
+                            [B, A, R]), !.
 %ex: jahCursou(nomeAluno, nomeDisciplina, ListaDeCursadas)
 %jahCursou(X, Y, R) :- findall([X,Z], cursou(X, Y, Z), R).
-%ex: jahCursou(nomeDisciplina)
+%ex: jahCursou(codigoDisciplina)
 jahCursou(Y) :- setof([X,Z], cursou(X, Y, Z), R),
+                nomeDisciplina(Y, A),
                 format('Os seguintes alunos já cursaram a disciplina de~n~w~ncom as respectivas notas:~n~n~p',
-                [Y, R]).
+                [A, R]), !.
 
 %% 4- Relação de disciplinas que faltam ser cursadas por um estudante
 %retorna todas as matérias que faltam ser cursadas pelo aluno
-%ex: faltaCursar(nomeAluno, R)
+%ex: faltaCursar(nomeAluno)
 faltaCursar(X) :-
                   alunoDe(X, Z),
                   bagof(Y, matriz(Y, Z), R1),  
@@ -643,7 +646,7 @@ estudanteCurso(Y) :- setof(X, alunoDe(X, Y), R), print(R).
 %obs: usar A = 0 para exibir o histórico completo
 %ex: estudanteCurso_ComNotaMaior(siglaCurso, codigoDisciplina, filtroNota)
 estudanteCurso_ComNotaMaior(B, Y, A) :- 
-                                        bagof([X, Z],
+                                        setof([X, Z],
                                         (alunoDe(X, B),
                                         cursou(X, Y, Z), Z >= A),
                                         R),
@@ -651,7 +654,7 @@ estudanteCurso_ComNotaMaior(B, Y, A) :-
                                         format('Os alunos do curso de ~w e ~nque cursaram a disciplina de ~w~ncom a nota maior ou igual a ~w, são os seguintes:~n~n~p',
                                         [C, D, A, R]), !.
 
-%ex: estudanteCurso_ComIRA(siglaCurso, codigoDisciplina, filtroIRA)
+%ex: estudanteCurso_ComIRA(siglaCurso, filtroIRA)
 estudanteCurso_ComIRA(B, A) :-
                                setof([X, V],
                                (alunoDe(X, B),
@@ -660,7 +663,7 @@ estudanteCurso_ComIRA(B, A) :-
                                format('Os alunos do curso de ~w e~nque possuem o IRA maior ou igual a ~w, são:~n~n~p',
                                [C, A, R]), !.
 
-%% 6- Relação de cursos que contém uma disciplina
+%% 6- Relação de cursos que contem uma disciplina
 %ex: cursoContem(codDisciplina)
 cursoContem(X) :- bagof([Z, A], (matriz(X, Z), nomeCurso(Z, A)), R),
                   nomeDisciplina(X, Y),

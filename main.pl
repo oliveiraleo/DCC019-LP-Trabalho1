@@ -1,6 +1,10 @@
 %%% Knowledge Base (Base de conhecimento)%%%
 %%% Sistema de Gestão Acadêmico %%%
 
+%%%% Grupo %%%%
+%%%% Leonardo Azalim de Oliveira%%%%
+%%%% Marina Nunes Silva%%%%
+
 %Configuração inicial%
 %% Lista de predicados que podem ser modificados em tempo de execução
 :- dynamic nomeCurso/2. % por conta do predicado removeCurso
